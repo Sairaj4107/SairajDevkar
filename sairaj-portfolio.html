@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sairaj Devkar — Embedded & MBD Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #090c10;
+    --bg2: #0d1117;
+    --bg3: #131920;
+    --accent: #00e5ff;
+    --accent2: #7b61ff;
+    --accent3: #00ff88;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,229,255,0.15);
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-head);
+    overflow-x: hidden;
+  }
+
+  /* Grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-inner { max-width: 900px; }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 span {
+    display: block;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: #fff; }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-outline:hover { background: rgba(0,229,255,0.08); }
+
+  .hero-stats {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .stat {
+    text-align: right;
+  }
+  .stat-num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+  .section-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .section-divider {
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+  }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+
+  .about-info { display: flex; flex-direction: column; gap: 0; }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .info-row:first-child { border-top: 1px solid var(--border); }
+  .info-key {
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .info-val { color: var(--text); font-weight: 600; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .skill-category {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    background: rgba(0,229,255,0.06);
+    border: 1px solid rgba(0,229,255,0.2);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg2); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .timeline-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-company {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+  }
+  .timeline-points { list-style: none; }
+  .timeline-points li {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    padding-left: 1.2rem;
+    position: relative;
+    font-weight: 400;
+  }
+  .timeline-points li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .t-tag {
+    background: rgba(123,97,255,0.1);
+    border: 1px solid rgba(123,97,255,0.3);
+    color: #a78bfa;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .project-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .project-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+  }
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .project-stack {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent3);
+    letter-spacing: 0.05em;
+  }
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bg2);
+    text-align: center;
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-inner .section-title { margin-bottom: 1rem; }
+  .contact-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-item svg { width: 16px; height: 16px; opacity: 0.7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-stats { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SD://portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Embedded Systems · MBD · Automotive</div>
+    <h1>
+      Sairaj<br>
+      <span>Devkar.</span>
+    </h1>
+    <p class="hero-desc">
+      ENTC Engineer specializing in embedded hardware, firmware development, and model-based design. Currently building automotive-grade systems at Tata Technologies.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">9+</div>
+      <div class="stat-label">Months Embedded</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Industry Internships</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">MBD</div>
+      <div class="stat-label">Current Role</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">// 01 — About</div>
+  <h2 class="section-title">Who I <em>Am</em></h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>
+        I'm a <strong>Electronics & Telecommunication Engineering</strong> graduate with a strong foundation in embedded systems, hardware design, and firmware development. I love working at the intersection of hardware and software — where code meets circuits.
+      </p>
+      <p>
+        During my <strong>9-month internship at Inditech Electrosystem Pvt. Ltd.</strong>, I gained hands-on experience in embedded hardware design and firmware development for real-world industrial applications. That experience shaped how I think about building reliable, efficient systems.
+      </p>
+      <p>
+        I'm currently an <strong>MBD Engineer Intern at Tata Technologies</strong>, working with MATLAB/Simulink to build model-based design solutions for the automotive domain — a space I'm deeply passionate about.
+      </p>
+    </div>
+
+    <div class="about-info fade-in">
+      <div class="info-row">
+        <span class="info-key">Branch</span>
+        <span class="info-val">Electronics & Telecomm (ENTC)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Current Role</span>
+        <span class="info-val">MBD Engineer Intern @ Tata Tech</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Previous</span>
+        <span class="info-val">Inditech Electrosystem (9 months)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Focus Area</span>
+        <span class="info-val">Embedded Systems · Automotive</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Location</span>
+        <span class="info-val">Maharashtra, India</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">LinkedIn</span>
+        <span class="info-val"><a href="https://www.linkedin.com/in/sairajdevkar/" target="_blank" style="color: var(--accent); text-decoration: none;">sairajdevkar</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">// 02 — Skills</div>
+  <h2 class="section-title">Tech <em>Stack</em></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Languages</div>
+      <div class="skill-list">
+        <span class="skill-tag">Embedded C</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MATLAB</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Tools & IDEs</div>
+      <div class="skill-list">
+        <span class="skill-tag">Simulink</span>
+        <span class="skill-tag">Keil MDK</span>
+        <span class="skill-tag">Arduino IDE</span>
+        <span class="skill-tag">STM32CubeIDE</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Microcontrollers</div>
+      <div class="skill-list">
+        <span class="skill-tag">STM32</span>
+        <span class="skill-tag">Arduino</span>
+        <span class="skill-tag">PIC</span>
+        <span class="skill-tag">8051</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Protocols</div>
+      <div class="skill-list">
+        <span class="skill-tag">UART</span>
+        <span class="skill-tag">SPI</span>
+        <span class="skill-tag">I2C</span>
+        <span class="skill-tag">CAN Bus</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Hardware</div>
+      <div class="skill-list">
+        <span class="skill-tag">PCB Design</span>
+        <span class="skill-tag">Circuit Design</span>
+        <span class="skill-tag">Sensors</span>
+        <span class="skill-tag">Oscilloscope</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-category">Domain Knowledge</div>
+      <div class="skill-list">
+        <span class="skill-tag">AUTOSAR (basics)</span>
+        <span class="skill-tag">MBD</span>
+        <span class="skill-tag">RTOS</span>
+        <span class="skill-tag">Automotive ECU</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">// 03 — Experience</div>
+  <h2 class="section-title">Work <em>History</em></h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-meta">2024 — Present</div>
+      <div class="timeline-title">MBD Engineer Intern</div>
+      <div class="timeline-company">Tata Technologies Limited</div>
+      <ul class="timeline-points">
+        <li>Working on Model-Based Design using MATLAB/Simulink for automotive embedded systems</li>
+        <li>Developing and validating control algorithms for ECU software components</li>
+        <li>Collaborating with cross-functional teams on automotive-grade software development</li>
+        <li>Gaining exposure to AUTOSAR architecture and automotive software standards</li>
+      </ul>
+      <div class="timeline-tags">
+        <span class="t-tag">MATLAB</span>
+        <span class="t-tag">Simulink</span>
+        <span class="t-tag">Automotive</span>
+        <span class="t-tag">ECU</span>
+        <span class="t-tag">AUTOSAR</span>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-meta">2023 — 2024 · 9 months</div>
+      <div class="timeline-title">Embedded Systems Intern</div>
+      <div class="timeline-company">Inditech Electrosystem Pvt. Ltd.</div>
+      <ul class="timeline-points">
+        <li>Designed and developed embedded firmware for industrial hardware products</li>
+        <li>Worked on hardware bring-up, PCB debugging, and schematic review</li>
+        <li>Implemented communication protocols (UART, SPI, I2C) for peripheral interfacing</li>
+        <li>Wrote and tested embedded C code for microcontroller-based systems</li>
+      </ul>
+      <div class="timeline-tags">
+        <span class="t-tag">Embedded C</span>
+        <span class="t-tag">PCB Design</span>
+        <span class="t-tag">UART/SPI/I2C</span>
+        <span class="t-tag">Firmware</span>
+        <span class="t-tag">Hardware</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag">// 04 — Projects</div>
+  <h2 class="section-title">What I've <em>Built</em></h2>
+
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-num">// 001</div>
+      <div class="project-title">Add Your Project Title Here</div>
+      <p class="project-desc">Briefly describe what this project does, the problem it solves, and your role in building it. Mention the hardware or system involved.</p>
+      <div class="project-footer">
+        <span class="project-stack">C · STM32 · CAN</span>
+        <a href="#" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-num">// 002</div>
+      <div class="project-title">Add Your Project Title Here</div>
+      <p class="project-desc">Describe the system or circuit you designed. What sensors, protocols, or microcontrollers were used? What was the outcome?</p>
+      <div class="project-footer">
+        <span class="project-stack">Arduino · I2C · Python</span>
+        <a href="#" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-num">// 003</div>
+      <div class="project-title">Final Year Project</div>
+      <p class="project-desc">Add your BE final year project here — even a partial project counts. Mention the problem statement, approach, and tech stack used.</p>
+      <div class="project-footer">
+        <span class="project-stack">MATLAB · Simulink</span>
+        <a href="#" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-tag" style="text-align:center; display:block;">// 05 — Contact</div>
+    <h2 class="section-title">Let's <em>Connect</em></h2>
+    <p class="contact-sub">
+      Open to full-time embedded systems or automotive software roles. Feel free to reach out for opportunities, collaborations, or just a conversation about electronics.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:sairaj@email.com" class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        sairaj@email.com
+      </a>
+      <a href="https://www.linkedin.com/in/sairajdevkar/" target="_blank" class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin/sairajdevkar
+      </a>
+      <a href="#" class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub (add yours)
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Sairaj Devkar — ENTC Engineer</div>
+  <div class="footer-copy">© 2025 · Built with passion for embedded systems</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
