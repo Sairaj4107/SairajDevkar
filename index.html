@@ -36,7 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:
 .photo-ring{width:340px;height:340px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--accent),var(--accent2));position:relative;animation:spin 10s linear infinite}
 .photo-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid var(--border)}
 .photo-ring img{animation:counter-spin 10s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+
 @keyframes counter-spin{
   from{transform:rotate(90deg)}
   to{transform:rotate(90deg) rotate(-360deg)}
